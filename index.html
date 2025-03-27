@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Precio por Rayitas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        h1 {
+            color: #333;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculadora de Precio por Rayitas</h1>
+    <label for="price">Precio por libra:</label>
+    <input type="number" id="price" placeholder="Ingresa el precio por libra" step="0.01" min="0" oninput="calcularPrecio()">
+
+    <label for="rayitas">Cantidad de rayitas:</label>
+    <input type="number" id="rayitas" placeholder="Ingresa las rayitas marcadas" step="1" min="1" oninput="calcularPrecio()">
+
+    <div class="result" id="resultado">El precio final es: 0.00</div>
+
+    <script>
+        function calcularPrecio() {
+            const precioPorLibra = parseFloat(document.getElementById('price').value);
+            const rayitas = parseInt(document.getElementById('rayitas').value);
+
+            // Validar entradas
+            if (isNaN(precioPorLibra) || isNaN(rayitas) || rayitas <= 0) {
+                document.getElementById('resultado').innerText = "Por favor, ingresa valores válidos.";
+                return;
+            }
+
+            // Calcular peso en libras basado en rayitas
+            const pesoEnLibras = rayitas / 16;
+
+            // Calcular precio final
+            const precioFinal = pesoEnLibras * precioPorLibra;
+
+            // Mostrar resultado en tiempo real
+            document.getElementById('resultado').innerText = 
+                `El precio final es: ${precioFinal.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
